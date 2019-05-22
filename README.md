@@ -8,7 +8,7 @@ Will re-run tests and modify xunit result files with successes on-the-fly.
 
 #### Require
 ```js
-var retry = new (require('./protractor-xunit-retry'))('./path-to-your-xunit-files');
+var retry = new (require('protractor-xunit-retry'))('./path-to-your-xunit-files');
 ```
 
 #### afterLaunch

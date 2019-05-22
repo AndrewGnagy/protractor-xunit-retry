@@ -4,7 +4,7 @@
   "description": "Allows failing protractor tests to be re-run based on xunit reports",
   "main": "xunit-retry.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "protractor tests/protractor-config.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,10 @@
     "yargs": "^13.2.4"
   },
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "chromedriver": "^74.0.0",
+    "eslint": "^5.16.0",
+    "jasmine-expect": "^4.0.1",
+    "jasmine-reporters": "^2.3.2",
+    "protractor": "^5.4.2"
   }
 }
