@@ -1,4 +1,4 @@
-/* global browser, process */
+#!/usr/bin/env node
 
 var argv = require('yargs').argv;
 var fs = require('fs');
@@ -19,7 +19,7 @@ function getResultsFilePath(dir = './xunit', suite = '.xml') {
     }
 
     let items = fs.readdirSync(dir);
-    let fileName = items.find(item => { return item.toLowerCase().indexOf(suite.toLowerCase()) !== -1});
+    let fileName = items.find(item => { return item.toLowerCase().indexOf(suite.toLowerCase()) !== -1; });
     if (!fileName) {
         throw Error('No xunit result file found containing: ' + suite);
     }
@@ -44,12 +44,12 @@ function escapeRegExp(string) {
 
 async function reprocessXunitFile(dir, file, lastRunXunitResult) {
     let builder = new xml2js.Builder();
-    let originalFile = getResultsFilePath(dir, ".xml.tmp");
+    let originalFile = getResultsFilePath(dir, '.xml.tmp');
     let xunitExistingResult = await readAndParseXunit(originalFile);
     //Iterate through and find previous failures that are now passes, then correct them
-    let passingTests = lastRunXunitResult.testsuites.testsuite[0].testcase.filter(tc => { return !tc.failure && !tc.skipped });
+    let passingTests = lastRunXunitResult.testsuites.testsuite[0].testcase.filter(tc => { return !tc.failure && !tc.skipped; });
     passingTests.forEach(test => {
-        let swapIndex = xunitExistingResult.testsuites.testsuite[0].testcase.findIndex(existingTc => { return existingTc.$.name == test.$.name });
+        let swapIndex = xunitExistingResult.testsuites.testsuite[0].testcase.findIndex(existingTc => { return existingTc.$.name == test.$.name; });
         xunitExistingResult.testsuites.testsuite[0].testcase.splice(swapIndex, 1, test);
     });
     //Decrement failure counts
@@ -114,7 +114,7 @@ module.exports = class XunitRetry {
             //Start collecting commands for the retry
             retryCommand.push(argv._);
 
-            let grepRegex = failedTests.map(tf => {return escapeRegExp(tf.$.name)}).join('|');
+            let grepRegex = failedTests.map(tf => {return escapeRegExp(tf.$.name);}).join('|');
             retryCommand.push('--grep', grepRegex);
     
             //Add the retry count
@@ -133,9 +133,9 @@ module.exports = class XunitRetry {
             });
     
             if (retryCount <= maxRetry) {
-                printRetryLog(retryCount, failedTests.map(tf => { return tf.$.name }).join(', '));
+                printRetryLog(retryCount, failedTests.map(tf => { return tf.$.name; }).join(', '));
                 var protExecutionPath = prepareProtractorExecutionPath(argv.$0);
-                fs.renameSync(file, this.xunitResultsDir + "/xunit-test-retry.xml.tmp");
+                fs.renameSync(file, this.xunitResultsDir + '/xunit-test-retry.xml.tmp');
                 return spawn(protExecutionPath, retryCommand);
             }
     
