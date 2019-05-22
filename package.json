@@ -1,0 +1,24 @@
+{
+  "name": "protractor-xunit-retry",
+  "version": "1.0.0",
+  "description": "Allows failing protractor tests to be re-run based on xunit reports",
+  "main": "xunit-retry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewGnagy/protractor-xunit-retry.git"
+  },
+  "keywords": [
+    "protractor",
+    "xunit",
+    "retry"
+  ],
+  "author": "Andrew Gnagy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndrewGnagy/protractor-xunit-retry/issues"
+  },
+  "homepage": "https://github.com/AndrewGnagy/protractor-xunit-retry#readme"
+}
