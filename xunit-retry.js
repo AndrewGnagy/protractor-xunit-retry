@@ -134,8 +134,15 @@ module.exports = class XunitRetry {
     
             if (retryCount <= maxRetry) {
                 printRetryLog(retryCount, failedTests.map(tf => { return tf.$.name; }).join(', '));
-                var protExecutionPath = prepareProtractorExecutionPath(argv.$0);
+                let protExecutionPath = prepareProtractorExecutionPath(argv.$0);
                 fs.renameSync(file, this.xunitResultsDir + '/xunit-test-retry.xml.tmp');
+                let odds = true;
+                let commandArgsStr = retryCommand.reduce((cmdStr, current) => {
+                    cmdStr += (current + (odds ? " " : "="));
+                    odds = !odds;
+                    return cmdStr;
+                }, '');
+                console.log('Retry command: ' + protExecutionPath + commandArgsStr);
                 return spawn(protExecutionPath, retryCommand);
             }
     
